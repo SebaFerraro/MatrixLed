@@ -20,6 +20,159 @@
 #define PIN_BLK GPIO_NUM_23
 #define PIN_STR GPIO_NUM_22
 #define PIN_CLK GPIO_NUM_19
+#define Mat_Alt 8
+#define Mat_Larg 32
+byte Matriz[]={
+B00000000000000000000000000000000,
+B00000000000000000000000000000000,
+B00000000000000000000000000000000,
+B00000000000000000000000000000000,
+B00000000000000000000000000000000,
+B00000000000000000000000000000000,
+B00000000000000000000000000000000,
+B00000000000000000000000000000000
+};
+const byte CaracteresArray[][8]={
+{
+B00000010,
+B00001010,
+B00010010,
+B00000010,
+B00000010,
+B00000010,
+B00000010,
+B00000010
+},
+{
+B00111000,
+B01001100,
+B01010010,
+B00000100,
+B00001100,
+B00011000,
+B00110000,
+B01111110
+},
+{
+B00111000,
+B01000100,
+B00000010,
+B00011110,
+B00000010,
+B00000010,
+B01000100,
+B00111000
+},
+{
+B00001010,
+B00010010,
+B00100010,
+B01111110,
+B00000010,
+B00000010,
+B00000010,
+B00000010
+},
+{
+B00000010,
+B00001010,
+B00010010,
+B00000010,
+B00000010,
+B00000010,
+B00000010,
+B00000010
+},
+{
+B00000010,
+B00001010,
+B00010010,
+B00000010,
+B00000010,
+B00000010,
+B00000010,
+B00000010
+},
+{
+B00000010,
+B00001010,
+B00010010,
+B00000010,
+B00000010,
+B00000010,
+B00000010,
+B00000010
+},
+{
+B00000010,
+B00001010,
+B00010010,
+B00000010,
+B00000010,
+B00000010,
+B00000010,
+B00000010
+},
+{
+B00000010,
+B00001010,
+B00010010,
+B00000010,
+B00000010,
+B00000010,
+B00000010,
+B00000010
+},
+{
+B00000010,
+B00001010,
+B00010010,
+B00000010,
+B00000010,
+B00000010,
+B00000010,
+B00000010
+},
+void Grafica_Mat(byte *Matriz,int largo){
+	int val;
+	for (int i=0 ; i<largo, i++){
+		val=(Matriz[0]>> i) and 1;
+		printf("Val %d.\n",val);
+		gpio_set_level(PIN1_RED1, val);
+		val=(Matriz[1]>> i) and 1;
+		printf("Val %d.\n",val);
+                gpio_set_level(PIN1_RED2, val);
+		val=(Matriz[2]>> i) and 1;
+		printf("Val %d.\n",val);
+                gpio_set_level(PIN2_RED1, val);
+		val=(Matriz[3]>> i) and 1;
+		printf("Val %d.\n",val);
+                gpio_set_level(PIN2_RED2, val);
+		val=(Matriz[4]>> i) and 1;
+		printf("Val %d.\n",val);
+                gpio_set_level(PIN3_RED1, val);
+		val=(Matriz[5]>> i) and 1;
+		printf("Val %d.\n",val);
+                gpio_set_level(PIN3_RED2, val);
+		val=(Matriz[6]>> i) and 1;
+		printf("Val %d.\n",val);
+                gpio_set_level(PIN4_RED1, val);
+		val=(Matriz[7]>> i) and 1;
+		printf("Val %d.\n",val);
+                gpio_set_level(PIN4_RED2, val);
+		vTaskDelay(50 / portTICK_PERIOD_MS);
+                gpio_set_level(PIN_CLK, 1);
+                printf("Clock.\n");
+                vTaskDelay(50 / portTICK_PERIOD_MS);
+                gpio_set_level(PIN_CLK, 0);
+	}
+        vTaskDelay(50 / portTICK_PERIOD_MS);
+        gpio_set_level(PIN_STR, 1);
+        vTaskDelay(50 / portTICK_PERIOD_MS);
+        gpio_set_level(PIN_STR, 0);
+        gpio_set_level(PIN_BLK, 0);
+}
+		
 
 static void run() {
 	//gpio_config_t io_conf;
