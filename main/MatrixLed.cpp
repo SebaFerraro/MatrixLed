@@ -75,6 +75,7 @@ static void run() {
 	//		esp_deep_sleep(10000);
 	        	gpio_set_level(PIN_BLK, 0);
 		}
+		vTaskDelay(50 / portTICK_PERIOD_MS);
         	printf("Fin.\n");
 	}
 	
