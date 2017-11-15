@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
+#include <bitset>
 #include "esp_wifi.h"
 #include "esp_system.h"
 #include "sdkconfig.h"
@@ -22,142 +23,187 @@
 #define PIN_CLK GPIO_NUM_19
 #define Mat_Alt 8
 #define Mat_Larg 32
-byte Matriz[]={
-B00000000000000000000000000000000,
-B00000000000000000000000000000000,
-B00000000000000000000000000000000,
-B00000000000000000000000000000000,
-B00000000000000000000000000000000,
-B00000000000000000000000000000000,
-B00000000000000000000000000000000,
-B00000000000000000000000000000000
+
+uint32_t Matriz[]={
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000
 };
-const byte CaracteresArray[][8]={
+
+const uint8_t CaracteresArray[][8]={
 {
-B00000010,
-B00001010,
-B00010010,
-B00000010,
-B00000010,
-B00000010,
-B00000010,
-B00000010
+0b00011000,
+0b00100100,
+0b01000010,
+0b01000010,
+0b01000010,
+0b01000010,
+0b00100100,
+0b00011000
 },
 {
-B00111000,
-B01001100,
-B01010010,
-B00000100,
-B00001100,
-B00011000,
-B00110000,
-B01111110
+0b00000010,
+0b00001010,
+0b00010010,
+0b00000010,
+0b00000010,
+0b00000010,
+0b00000010,
+0b00000010
 },
 {
-B00111000,
-B01000100,
-B00000010,
-B00011110,
-B00000010,
-B00000010,
-B01000100,
-B00111000
+0b00111000,
+0b01000100,
+0b01000010,
+0b00000100,
+0b00001100,
+0b00011000,
+0b00110000,
+0b01111110
 },
 {
-B00001010,
-B00010010,
-B00100010,
-B01111110,
-B00000010,
-B00000010,
-B00000010,
-B00000010
+0b00111000,
+0b01000100,
+0b00000010,
+0b00011110,
+0b00000010,
+0b00000010,
+0b01000100,
+0b00111000
 },
 {
-B00000010,
-B00001010,
-B00010010,
-B00000010,
-B00000010,
-B00000010,
-B00000010,
-B00000010
+0b00001010,
+0b00010010,
+0b00100010,
+0b01111110,
+0b00000010,
+0b00000010,
+0b00000010,
+0b00000010
 },
 {
-B00000010,
-B00001010,
-B00010010,
-B00000010,
-B00000010,
-B00000010,
-B00000010,
-B00000010
+0b01111110,
+0b01000000,
+0b01000000,
+0b01111000,
+0b00000100,
+0b00000010,
+0b01000100,
+0b00111000
 },
 {
-B00000010,
-B00001010,
-B00010010,
-B00000010,
-B00000010,
-B00000010,
-B00000010,
-B00000010
+0b00011110,
+0b00100000,
+0b01000000,
+0b01000000,
+0b01011100,
+0b01100010,
+0b00100010,
+0b00011100
 },
 {
-B00000010,
-B00001010,
-B00010010,
-B00000010,
-B00000010,
-B00000010,
-B00000010,
-B00000010
+0b01111110,
+0b00000100,
+0b00001000,
+0b00010000,
+0b00100000,
+0b01000000,
+0b01000000,
+0b01000000
 },
 {
-B00000010,
-B00001010,
-B00010010,
-B00000010,
-B00000010,
-B00000010,
-B00000010,
-B00000010
+0b00111100,
+0b01000010,
+0b01000010,
+0b00111100,
+0b01000010,
+0b01000010,
+0b01000010,
+0b00111100
 },
 {
-B00000010,
-B00001010,
-B00010010,
-B00000010,
-B00000010,
-B00000010,
-B00000010,
-B00000010
+0b00111100,
+0b01000010,
+0b01000010,
+0b00111110,
+0b00000010,
+0b00000010,
+0b01000100,
+0b00111000
 },
-void Grafica_Mat(byte *Matriz,int largo){
+{
+0b00111100,
+0b01000010,
+0b01000010,
+0b00111100,
+0b00000000,
+0b00000000,
+0b00000000,
+0b00000000
+},
+{
+0b00000000,
+0b01100010,
+0b01100100,
+0b00001000,
+0b00010000,
+0b00100110,
+0b01000110,
+0b00000000
+}
+};
+void binary(uint32_t numero){
+	for (int i = 31; i >= 0; i--)
+    		printf("%u",((numero >> i) & 1));
+	printf("\n");
+}
+void Pone_Car_Mat(const uint8_t Caract[], int posicion){
+	for (int i=0;i<Mat_Alt;i++){
+		printf("Caract : \n");
+		binary((Caract[i]));
+		printf("Caract[i] << posicion : \n");
+		binary((Caract[i] << posicion));
+		printf("Matriz[i] or Caract[i] << posicion : \n");
+		binary(Matriz[i] | (uint32_t)(Caract[i] << posicion));
+		Matriz[i]=Matriz[i] | (uint32_t)(Caract[i] << posicion);		
+	}
+}
+void Imprime_Mat(void){
+	printf("Matriz :\n");
+	for (int i=0;i<Mat_Alt;i++){
+		binary(Matriz[i]);
+	}
+}
+void Grafica_Mat(uint32_t Matriz[],int largo){
 	int val;
-	for (int i=0 ; i<largo, i++){
-		val=(Matriz[0]>> i) and 1;
+	for (int i=0;i<largo;i++){
+		val=(Matriz[0]>> i) & 1;
 		printf("Val %d.\n",val);
 		gpio_set_level(PIN1_RED1, val);
-		val=(Matriz[1]>> i) and 1;
+		val=(Matriz[1]>> i) & 1;
 		printf("Val %d.\n",val);
                 gpio_set_level(PIN1_RED2, val);
-		val=(Matriz[2]>> i) and 1;
+		val=(Matriz[2]>> i) & 1;
 		printf("Val %d.\n",val);
                 gpio_set_level(PIN2_RED1, val);
-		val=(Matriz[3]>> i) and 1;
+		val=(Matriz[3]>> i) & 1;
 		printf("Val %d.\n",val);
                 gpio_set_level(PIN2_RED2, val);
-		val=(Matriz[4]>> i) and 1;
+		val=(Matriz[4]>> i) & 1;
 		printf("Val %d.\n",val);
                 gpio_set_level(PIN3_RED1, val);
-		val=(Matriz[5]>> i) and 1;
+		val=(Matriz[5]>> i) & 1;
 		printf("Val %d.\n",val);
                 gpio_set_level(PIN3_RED2, val);
-		val=(Matriz[6]>> i) and 1;
+		val=(Matriz[6]>> i) & 1;
 		printf("Val %d.\n",val);
                 gpio_set_level(PIN4_RED1, val);
-		val=(Matriz[7]>> i) and 1;
+		val=(Matriz[7]>> i) & 1;
 		printf("Val %d.\n",val);
                 gpio_set_level(PIN4_RED2, val);
 		vTaskDelay(50 / portTICK_PERIOD_MS);
@@ -202,35 +248,38 @@ static void run() {
 	//esp_deep_sleep(10000);
 	//esp_deep_sleep(10000);
 	int val=0;
-	while (1){
-		val= !val;
-	        printf("RED 1.\n");
-		gpio_set_level(PIN1_RED1, val);
-		gpio_set_level(PIN1_RED2, val);
-		gpio_set_level(PIN2_RED1, val);
-		gpio_set_level(PIN2_RED2, val);
-		gpio_set_level(PIN3_RED1, val);
-		gpio_set_level(PIN3_RED2, val);
-		gpio_set_level(PIN4_RED1, val);
-		gpio_set_level(PIN4_RED2, val);
-	        printf("RED 2.\n");
-        	vTaskDelay(50 / portTICK_PERIOD_MS);
-		for (int i=0 ; i < 16 ; i++){
-			gpio_set_level(PIN_CLK, 1);
-	        	printf("Clock.\n");
-			//esp_deep_sleep(10000);
-	        	vTaskDelay(50 / portTICK_PERIOD_MS);
-			gpio_set_level(PIN_CLK, 0);
-        		vTaskDelay(50 / portTICK_PERIOD_MS);
-			gpio_set_level(PIN_STR, 1);
-		        vTaskDelay(50 / portTICK_PERIOD_MS);
-			gpio_set_level(PIN_STR, 0);
-	//		esp_deep_sleep(10000);
-	        	gpio_set_level(PIN_BLK, 0);
-		}
-		vTaskDelay(50 / portTICK_PERIOD_MS);
-        	printf("Fin.\n");
-	}
+	Pone_Car_Mat(CaracteresArray[1],0);
+	Pone_Car_Mat(CaracteresArray[0],8);
+	Imprime_Mat();
+	//while (1){
+	//	val= !val;
+	 //       printf("RED 1.\n");
+	//	gpio_set_level(PIN1_RED1, val);
+	//	gpio_set_level(PIN1_RED2, val);
+	//	gpio_set_level(PIN2_RED1, val);
+	//	gpio_set_level(PIN2_RED2, val);
+	//	gpio_set_level(PIN3_RED1, val);
+	//	gpio_set_level(PIN3_RED2, val);
+	//	gpio_set_level(PIN4_RED1, val);
+	//	gpio_set_level(PIN4_RED2, val);
+	 //       printf("RED 2.\n");
+        //	vTaskDelay(50 / portTICK_PERIOD_MS);
+	//	for (int i=0 ; i < 16 ; i++){
+	//		gpio_set_level(PIN_CLK, 1);
+	 //       	printf("Clock.\n");
+	//		//esp_deep_sleep(10000);
+	 //       	vTaskDelay(50 / portTICK_PERIOD_MS);
+	//		gpio_set_level(PIN_CLK, 0);
+        //		vTaskDelay(50 / portTICK_PERIOD_MS);
+	//		gpio_set_level(PIN_STR, 1);
+	//	        vTaskDelay(50 / portTICK_PERIOD_MS);
+	//		gpio_set_level(PIN_STR, 0);
+	////		esp_deep_sleep(10000);
+	  //      	gpio_set_level(PIN_BLK, 0);
+	//	}
+	//	vTaskDelay(50 / portTICK_PERIOD_MS);
+        //	printf("Fin.\n");
+	//}
 	
 }
 
