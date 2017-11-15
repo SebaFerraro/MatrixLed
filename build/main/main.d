@@ -1,2 +1,2 @@
-main.o: /home/sferraro/esp32/MatrixLed/main/./main.cpp
-/home/sferraro/esp32/MatrixLed/main/./main.cpp:
+main.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./main.c
+/home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./main.c:

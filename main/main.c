@@ -1,9 +1,9 @@
 /**
  * Main file for running the BLE samples.
  */
-extern "C" {
-	void app_main(void);
-}
+//extern "C" {
+//	void app_main(void);
+//}
 
 
 void MatrixLed(void);
