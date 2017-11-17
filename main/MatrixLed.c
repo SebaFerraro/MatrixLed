@@ -31,7 +31,7 @@
 #define PIN_GRN_CLK GPIO_NUM_4
 #define Mat_Alt 8
 #define Mat_Larg 32
-#define SDELAY 5
+#define SDELAY 1
 #define CaracteresArray CaracteresArray2
 
 uint32_t Matriz[]={
@@ -45,6 +45,26 @@ uint32_t Matriz[]={
 0b00000000000000000000000000000000
 };
 
+uint32_t MatrizROSARIO[]={
+0b00000000000000000000000000000000,
+0b11100011000110001100111001001100,
+0b10010100101000010010100101010010,
+0b11100100100110011110111001010010,
+0b10100100100001010010101001010010,
+0b10010011000110010010100101001100,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000
+};
+uint32_t MatrizCIOR[]={
+0b00000000000000000000000000000000,
+0b00000001100100110001110000000000,
+0b00111010010101001001001000000000,
+0b00000010000101001001110000000000,
+0b00111010010101001001010000000000,
+0b00000001100100110001001000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000
+};
 //static uint8_t temprature_sens_read(); 
 //static uint32_t hall_sens_read();
 //void TempPres(double sali[]);
@@ -259,17 +279,59 @@ static void run() {
 	//esp_deep_sleep(10000);
 	int val=0;
 	Blanc_Mat(Matriz);
-	Imprime_Mat(Matriz);
-	Grafica_Mat(Matriz,16,2,0);
-	Pone_Car_Mat(CaracteresArray[1],0,Matriz);
-	Pone_Car_Mat(CaracteresArray[0],8,Matriz);
-	Imprime_Mat(Matriz);
-	Grafica_Mat(Matriz,16,2,1);
+	Imprime_Mat(MatrizROSARIO);
+	Grafica_Mat(MatrizROSARIO,32,2,0);
+	vTaskDelay(10000 / portTICK_RATE_MS);
 	Blanc_Mat(Matriz);
-	GenBarra_Mat(Matriz,20);
-	Imprime_Mat(Matriz);
-	Grafica_Mat(Matriz,16,1,1);
+	Imprime_Mat(MatrizCIOR);
+	Grafica_Mat(MatrizCIOR,32,2,0);
+	vTaskDelay(10000 / portTICK_RATE_MS);
+	//Pone_Car_Mat(CaracteresArray[1],0,Matriz);
+	//Pone_Car_Mat(CaracteresArray[0],8,Matriz);
+	//Imprime_Mat(Matriz);
+	//Grafica_Mat(Matriz,32,2,1);
+	//GenBarra_Mat(Matriz,20);
+	//Imprime_Mat(Matriz);
+	//Grafica_Mat(Matriz,32,1,1);
 	//double sali[2]={0};
+	//Blanc_Mat(Matriz);
+	//Pone_Car_Mat(CaracteresArray[0],0,Matriz);
+	//Pone_Car_Mat(CaracteresArray[1],8,Matriz);
+	//Imprime_Mat(Matriz);
+	//Grafica_Mat(Matriz,32,1,1);
+	//vTaskDelay(1000 / portTICK_RATE_MS);
+	//Blanc_Mat(Matriz);
+	//Pone_Car_Mat(CaracteresArray[2],0,Matriz);
+	//Pone_Car_Mat(CaracteresArray[3],8,Matriz);
+	//Imprime_Mat(Matriz);
+	//Grafica_Mat(Matriz,32,1,1);
+	//vTaskDelay(1000 / portTICK_RATE_MS);
+	//Blanc_Mat(Matriz);
+	//Pone_Car_Mat(CaracteresArray[4],0,Matriz);
+	//Pone_Car_Mat(CaracteresArray[5],8,Matriz);
+	//Imprime_Mat(Matriz);
+	//Grafica_Mat(Matriz,32,1,1);
+	//vTaskDelay(1000 / portTICK_RATE_MS);
+	//Blanc_Mat(Matriz);
+	//Pone_Car_Mat(CaracteresArray[6],0,Matriz);
+	//Pone_Car_Mat(CaracteresArray[7],8,Matriz);
+	//Imprime_Mat(Matriz);
+	//Grafica_Mat(Matriz,32,1,1);
+	//vTaskDelay(1000 / portTICK_RATE_MS);
+	//Blanc_Mat(Matriz);
+	//Pone_Car_Mat(CaracteresArray[8],0,Matriz);
+	//Pone_Car_Mat(CaracteresArray[9],8,Matriz);
+	//Imprime_Mat(Matriz);
+	//Grafica_Mat(Matriz,32,1,1);
+	//vTaskDelay(1000 / portTICK_RATE_MS);
+	//Blanc_Mat(Matriz);
+	//Pone_Car_Mat(CaracteresArray[10],0,Matriz);
+	//Pone_Car_Mat(CaracteresArray[11],8,Matriz);
+	//Imprime_Mat(Matriz);
+	//Grafica_Mat(Matriz,32,1,1);
+	//vTaskDelay(1000 / portTICK_RATE_MS);
+	Blanc_Mat(Matriz);
+	
 	while(1){
 		//printf("Starting DHT measurement!\n");
 		val=getTemp();
@@ -286,6 +348,8 @@ static void run() {
 	        printf("iTemp %d\n",itemp);
 		int k=0;
 		Blanc_Mat(Matriz);
+		Pone_Car_Mat(CaracteresArray[10],k,Matriz);
+		k=k+8;
 		while (itemp > 0)
 		{	
     			int digit = itemp%10;
@@ -295,7 +359,7 @@ static void run() {
 	    		printf("Digit : %d  Posicion : %d", digit,k);
 		}
 		Imprime_Mat(Matriz);
-		Grafica_Mat(Matriz,16,0,1);
+		Grafica_Mat(Matriz,32,2,1);
 		vTaskDelay(10000 / portTICK_RATE_MS);
 		
 		val=getHumidity();
@@ -304,6 +368,8 @@ static void run() {
 	        printf("iHumed %d\n",itemp);
 		k=0;
 		Blanc_Mat(Matriz);
+		Pone_Car_Mat(CaracteresArray[11],k,Matriz);
+		k=k+8;
 		while (itemp > 0)
 		{	
     			int digit = itemp%10;
@@ -313,92 +379,36 @@ static void run() {
 	    		printf("Digit : %d  Posicion : %d", digit,k);
 		}
 		Imprime_Mat(Matriz);
-		Grafica_Mat(Matriz,16,1,1);
+		Grafica_Mat(Matriz,32,2,1);
 		vTaskDelay(10000 / portTICK_RATE_MS);
 		
-		Blanc_Mat(Matriz);
-		Pone_Car_Mat(CaracteresArray[0],0,Matriz);
-		Pone_Car_Mat(CaracteresArray[1],8,Matriz);
-		Imprime_Mat(Matriz);
-		Grafica_Mat(Matriz,16,1,1);
-		vTaskDelay(10000 / portTICK_RATE_MS);
-		Blanc_Mat(Matriz);
-		Pone_Car_Mat(CaracteresArray[2],0,Matriz);
-		Pone_Car_Mat(CaracteresArray[3],8,Matriz);
-		Imprime_Mat(Matriz);
-		Grafica_Mat(Matriz,16,1,1);
-		vTaskDelay(10000 / portTICK_RATE_MS);
-		Blanc_Mat(Matriz);
-		Pone_Car_Mat(CaracteresArray[4],0,Matriz);
-		Pone_Car_Mat(CaracteresArray[5],8,Matriz);
-		Imprime_Mat(Matriz);
-		Grafica_Mat(Matriz,16,1,1);
-		vTaskDelay(10000 / portTICK_RATE_MS);
-		Blanc_Mat(Matriz);
-		Pone_Car_Mat(CaracteresArray[6],0,Matriz);
-		Pone_Car_Mat(CaracteresArray[7],8,Matriz);
-		Imprime_Mat(Matriz);
-		Grafica_Mat(Matriz,16,1,1);
-		vTaskDelay(10000 / portTICK_RATE_MS);
-		Blanc_Mat(Matriz);
-		Pone_Car_Mat(CaracteresArray[8],0,Matriz);
-		Pone_Car_Mat(CaracteresArray[9],8,Matriz);
-		Imprime_Mat(Matriz);
-		Grafica_Mat(Matriz,16,1,1);
-		vTaskDelay(10000 / portTICK_RATE_MS);
-		Blanc_Mat(Matriz);
-		Pone_Car_Mat(CaracteresArray[10],0,Matriz);
-		Pone_Car_Mat(CaracteresArray[11],8,Matriz);
-		Imprime_Mat(Matriz);
-		Grafica_Mat(Matriz,16,1,1);
-		vTaskDelay(10000 / portTICK_RATE_MS);
-		Blanc_Mat(Matriz);
 		int col=1;
-        	for(int l=0; l<32; l++){ 
-			GenBarra_Mat(Matriz,l);
-		        Imprime_Mat(Matriz);
-			if(l>4){
-				col=2;
-			}
-			if(l>8){
-				col=0;
-			}
-	        	Grafica_Mat(Matriz,16,col,1);
-			vTaskDelay(1000 / portTICK_RATE_MS);
-			Blanc_Mat(Matriz);
+		int l = rand() % 32;
+		GenBarra_Mat(Matriz,l);
+	        Imprime_Mat(Matriz);
+		if(l>12){
+			col=2;
 		}
-
-		
-	}
-	//while (1){
-	//	val= !val;
-	 //       printf("RED 1.\n");
-	//	gpio_set_level(PIN1_RED1, val);
-	//	gpio_set_level(PIN1_RED2, val);
-	//	gpio_set_level(PIN2_RED1, val);
-	//	gpio_set_level(PIN2_RED2, val);
-	//	gpio_set_level(PIN3_RED1, val);
-	//	gpio_set_level(PIN3_RED2, val);
-	//	gpio_set_level(PIN4_RED1, val);
-	//	gpio_set_level(PIN4_RED2, val);
-	 //       printf("RED 2.\n");
-        //	vTaskDelay(50 / portTICK_PERIOD_MS);
-	//	for (int i=0 ; i < 16 ; i++){
-	//		gpio_set_level(PIN_CLK, 1);
-	 //       	printf("Clock.\n");
-	//		//esp_deep_sleep(10000);
-	 //       	vTaskDelay(50 / portTICK_PERIOD_MS);
-	//		gpio_set_level(PIN_CLK, 0);
-        //		vTaskDelay(50 / portTICK_PERIOD_MS);
-	//		gpio_set_level(PIN_STR, 1);
-	//	        vTaskDelay(50 / portTICK_PERIOD_MS);
-	//		gpio_set_level(PIN_STR, 0);
-	////		esp_deep_sleep(10000);
-	  //      	gpio_set_level(PIN_BLK, 0);
+		if(l>24){
+			col=0;
+		}
+	      	Grafica_Mat(Matriz,32,col,1);
+		vTaskDelay(10000 / portTICK_RATE_MS);
+		Blanc_Mat(Matriz);
+		//for(int l=0; l<32; l++){ 
+	//		GenBarra_Mat(Matriz,l);
+	//	        Imprime_Mat(Matriz);
+	//		if(l>4){
+	//			col=2;
+	//		}
+	//		if(l>8){
+	//			col=0;
+	//		}
+	 //       	Grafica_Mat(Matriz,32,col,1);
+	//		vTaskDelay(500 / portTICK_RATE_MS);
+	//		Blanc_Mat(Matriz);
 	//	}
-	//	vTaskDelay(50 / portTICK_PERIOD_MS);
-        //	printf("Fin.\n");
-	//}
+	}
 	
 }
 
