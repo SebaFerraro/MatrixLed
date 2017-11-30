@@ -1,4 +1,5 @@
-MatrixLed.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./MatrixLed.c \
+Veml6070.o: \
+ /home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_veml6070/./Veml6070.c \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/stdio.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/_ansi.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/newlib.h \
@@ -71,47 +72,7 @@ MatrixLed.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./MatrixLed.c \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/soc/esp32/include/soc/gpio_sig_map.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/rom/gpio.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_attr.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/math.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_wifi.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/rom/queue.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_wifi_types.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_interface.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_wifi_crypto_types.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_event.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/tcpip_adapter/include/tcpip_adapter.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/rom/queue.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_wifi_types.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/ip_addr.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/opt.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/port/lwipopts.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/time.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/machine/time.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/time.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/fcntl.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/_default_fcntl.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/stat.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_task.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/debug.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/arch.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/port/arch/cc.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/errno.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/errno.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/port/arch/sys_arch.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/def.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/ip4_addr.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/ip6_addr.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/apps/dhcpserver.h \
- /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./caracteres.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_system.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_deep_sleep.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/driver/include/driver/touch_pad.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_intr.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/rom/ets_sys.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/nvs_flash/include/nvs_flash.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/nvs_flash/include/nvs.h \
- /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/log/include/esp_log.h \
- /home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_dht11/./dht11.h \
- /home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_veml6070/./Veml6070.h
+ /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/math.h
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/stdio.h:
 
@@ -258,84 +219,4 @@ MatrixLed.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./MatrixLed.c \
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_attr.h:
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/math.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_wifi.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/rom/queue.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_wifi_types.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_interface.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_wifi_crypto_types.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_event.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/tcpip_adapter/include/tcpip_adapter.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/rom/queue.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_wifi_types.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/ip_addr.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/opt.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/port/lwipopts.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/time.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/machine/time.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/time.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/fcntl.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/_default_fcntl.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/stat.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_task.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/debug.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/arch.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/port/arch/cc.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/errno.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/errno.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/port/arch/sys_arch.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/def.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/ip4_addr.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/ip6_addr.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/apps/dhcpserver.h:
-
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./caracteres.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_system.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_deep_sleep.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/driver/include/driver/touch_pad.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_intr.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/rom/ets_sys.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/nvs_flash/include/nvs_flash.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/nvs_flash/include/nvs.h:
-
-/home/sferrar0/Lua-Rtos-esp32/esp-idf/components/log/include/esp_log.h:
-
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_dht11/./dht11.h:
-
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_veml6070/./Veml6070.h:
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./MatrixLed.c:
+/home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_veml6070/./Veml6070.c:

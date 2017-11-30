@@ -14,44 +14,6 @@
 #include "dht11.h"
 #include "Veml6070.h"
 
-//void Veml6070(void);
-//
-//
-////
-//// Un-comment ONE of the following
-////            ---
-//void app_main(void) {
-/*
-i2c_master_init();
-uint8_t sal=0;
-uint8_t dat=0;
-uint16_t uv=0;
-dat=((IT_1<<2) | 0x02);
-while(1){
-        uv=i2c_veml6070_uv(dat);
-        printf("READ %d UV: %d\n",sal,uv);
-        vTaskDelay(2000 / portTICK_RATE_MS);
- }
-}
-≥ 11       ≥ 2055        ≥ 4109             ≥ 8217 Extreme
-8 to 10   1494 to 2054   2989 to 4108       5977 to 8216 Very High
-6, 7      1121 to 1494   2242 to 2988       4483 to 5976 High
-3 to 5    561 to 1120    1121 to 2241       2241 to 4482 Moderate
-0 to 2    0 to 560       0 to 1120
-uint8_t iuv=0;
-if(uv<(560*T){
-
-		} else if(uv<1120*T){
-
-		}else if(uv<1494*T){
-
-		}else if(uv<2054*T){
-
-		}else {
-
-		}
-*/		
-//
 
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
@@ -69,9 +31,15 @@ if(uv<(560*T){
 #define PIN_RED_CLK GPIO_NUM_19
 #define PIN_GRN_STR GPIO_NUM_0
 #define PIN_GRN_CLK GPIO_NUM_4
+#define PIN_DHT11 GPIO_NUM_18
+#define SDA_PIN GPIO_NUM_12
+#define SCL_PIN GPIO_NUM_13
 #define Mat_Alt 8
 #define Mat_Larg 32
 #define SDELAY 1
+#define T IT_2
+#define DELAY_INFO 10000
+#define DELAY_BANNER 7000
 #define CaracteresArray CaracteresArray2
 
 uint32_t Matriz[]={
@@ -92,6 +60,16 @@ uint32_t MatrizROSARIO[]={
 0b11100100100110011110111001010010,
 0b10100100100001010010101001010010,
 0b10010011000110010010100101001100,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000
+};
+uint32_t MatrizSMART[]={
+0b00000000000000000000000000000000,
+0b00001100110110011001110011100000,
+0b11010000101010100101001001000000,
+0b00001100100010111101110001000000,
+0b11000010100010100101010001000000,
+0b00001100100010100101001001000000,
 0b00000000000000000000000000000000,
 0b00000000000000000000000000000000
 };
@@ -281,19 +259,59 @@ void Grafica_Mat(uint32_t Matriz[],int largo,int color,int borra){
         gpio_set_level(PIN_BLK, 0);
 }
 		
+void Grafica_Matriz_Desplaza(uint32_t Matriz[],int largo,int color,int borra,int direccion){
+	
+uint32_t MatrizTemp[]={
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000
+};
+	for(int i=0;i<largo;i++){
+		if(direccion==0){
+		MatrizTemp[0]=(uint32_t)((Matriz[0]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[1]=(uint32_t)((Matriz[1]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[2]=(uint32_t)((Matriz[2]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[3]=(uint32_t)((Matriz[3]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[4]=(uint32_t)((Matriz[4]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[5]=(uint32_t)((Matriz[5]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[6]=(uint32_t)((Matriz[6]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[7]=(uint32_t)((Matriz[7]<< (largo - i)) & 0b11111111111111111111111111111111);
+		}else{
+		MatrizTemp[0]=(uint32_t)((Matriz[0]>>i) & 0b11111111111111111111111111111111);
+		MatrizTemp[1]=(uint32_t)((Matriz[1]>>i) & 0b11111111111111111111111111111111);
+		MatrizTemp[2]=(uint32_t)((Matriz[2]>>i) & 0b11111111111111111111111111111111);
+		MatrizTemp[3]=(uint32_t)((Matriz[3]>>i) & 0b11111111111111111111111111111111);
+		MatrizTemp[4]=(uint32_t)((Matriz[4]>>i) & 0b11111111111111111111111111111111);
+		MatrizTemp[5]=(uint32_t)((Matriz[5]>>i) & 0b11111111111111111111111111111111);
+		MatrizTemp[6]=(uint32_t)((Matriz[6]>>i) & 0b11111111111111111111111111111111);
+		MatrizTemp[7]=(uint32_t)((Matriz[7]<<i) & 0b11111111111111111111111111111111);
+		}
+		Imprime_Mat(MatrizTemp);
+		Grafica_Mat(MatrizTemp,largo,color,borra);
+	}
+}
+
+void Grafica_Banner(void){
+	Blanc_Mat(Matriz);
+	Grafica_Mat(Matriz,32,2,0);
+	Grafica_Matriz_Desplaza(MatrizROSARIO,32,2,0,0);
+        vTaskDelay(DELAY_BANNER / portTICK_RATE_MS);
+	Grafica_Matriz_Desplaza(MatrizSMART,32,2,0,0);
+        vTaskDelay(DELAY_BANNER / portTICK_RATE_MS);
+	Blanc_Mat(Matriz);
+	Grafica_Mat(Matriz,32,2,0);
+}
+
 
 static void run() {
 	nvs_flash_init();
-    	//system_init();
-	//gpio_config_t io_conf;
-	//io_conf.intr_type = GPIO_INTR_DISABLE;
-	//io_conf.mode = GPIO_MODE_OUTPUT;
-	//io_conf.pin_bit_mask = GPIO_BIT_MASK;
-	//io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
-	//io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
-	//gpio_config(&io_conf);
-    	
-  	setDHTPin(18);
+  	
+	setDHTPin(PIN_DHT11);
 	gpio_set_direction(PIN1_RED1, GPIO_MODE_OUTPUT);
     	gpio_set_direction(PIN1_RED2, GPIO_MODE_OUTPUT);
     	gpio_set_direction(PIN2_RED1, GPIO_MODE_OUTPUT);
@@ -315,17 +333,17 @@ static void run() {
         vTaskDelay(500 / portTICK_PERIOD_MS);
         printf("BLK 0.\n");
        	vTaskDelay(200 / portTICK_PERIOD_MS);
-	//esp_deep_sleep(10000);
-	//esp_deep_sleep(10000);
 	int val=0;
-	Blanc_Mat(Matriz);
-	Imprime_Mat(MatrizROSARIO);
-	Grafica_Mat(MatrizROSARIO,32,2,0);
-	vTaskDelay(10000 / portTICK_RATE_MS);
-	Blanc_Mat(Matriz);
-	Imprime_Mat(MatrizCIOR);
-	Grafica_Mat(MatrizCIOR,32,2,0);
-	vTaskDelay(10000 / portTICK_RATE_MS);
+	Grafica_Banner();
+	//Blanc_Mat(Matriz);
+	//Imprime_Mat(MatrizROSARIO);
+	//Grafica_Mat(MatrizROSARIO,32,2,0);
+	//vTaskDelay(DELAY_BANNER / portTICK_RATE_MS);
+	//Blanc_Mat(Matriz);
+	//Imprime_Mat(MatrizCIOR);
+	//Grafica_Mat(MatrizCIOR,32,2,0);
+	//vTaskDelay(DELAY_BANNER / portTICK_RATE_MS);
+	
 	//Pone_Car_Mat(CaracteresArray[1],0,Matriz);
 	//Pone_Car_Mat(CaracteresArray[0],8,Matriz);
 	//Imprime_Mat(Matriz);
@@ -373,17 +391,8 @@ static void run() {
 	Blanc_Mat(Matriz);
 	
 	while(1){
-		//printf("Starting DHT measurement!\n");
 		val=getTemp();
-		//val=23.5;
 	    	printf("Temperatura %d\n",val);
-		//printf("F temperature is %d\n", getFtemp());
-		//printf("Humidity reading %d\n",getHumidity());
-		//vTaskDelay(1000 / portTICK_RATE_MS);
-        	//TempPres(sali);
-		//float temp=( temprature_sens_read() - 32) / 1.8 ;
-	        //printf("Temp %f\n",sali[0]);
-		//int itemp = static_cast<int>(val);
 		int itemp = (int)roundf(val);
 	        printf("iTemp %d\n",itemp);
 		int k=0;
@@ -400,7 +409,7 @@ static void run() {
 		}
 		Imprime_Mat(Matriz);
 		Grafica_Mat(Matriz,32,2,1);
-		vTaskDelay(10000 / portTICK_RATE_MS);
+		vTaskDelay(DELAY_INFO / portTICK_RATE_MS);
 		
 		val=getHumidity();
 	    	printf("Humedad %d\n",val);
@@ -420,34 +429,30 @@ static void run() {
 		}
 		Imprime_Mat(Matriz);
 		Grafica_Mat(Matriz,32,2,1);
-		vTaskDelay(10000 / portTICK_RATE_MS);
+		vTaskDelay(DELAY_INFO / portTICK_RATE_MS);
 		
 		int col=1;
-		int l = rand() % 32;
+		int l=0;
+		//int l = rand() % 32;
+		uint8_t dat=((T<<2) | 0x02);
+		uint16_t uv=0;
+		uint8_t uvi=0;
+		i2c_master_init();
+		uv=i2c_veml6070_uv(dat);
+		uvi=i2c_veml6070_indexuv(uv,T);
+		l= (int)roundf(uvi*32/11);
+		printf("UV: %d UVI: %d IBAR: %d\n",uv,uvi,l);
 		GenBarra_Mat(Matriz,l);
 	        Imprime_Mat(Matriz);
-		if(l>12){
+		if(l>6){
 			col=2;
 		}
-		if(l>24){
+		if(l>15){
 			col=0;
 		}
 	      	Grafica_Mat(Matriz,32,col,1);
-		vTaskDelay(10000 / portTICK_RATE_MS);
+		vTaskDelay(DELAY_INFO / portTICK_RATE_MS);
 		Blanc_Mat(Matriz);
-		//for(int l=0; l<32; l++){ 
-	//		GenBarra_Mat(Matriz,l);
-	//	        Imprime_Mat(Matriz);
-	//		if(l>4){
-	//			col=2;
-	//		}
-	//		if(l>8){
-	//			col=0;
-	//		}
-	 //       	Grafica_Mat(Matriz,32,col,1);
-	//		vTaskDelay(500 / portTICK_RATE_MS);
-	//		Blanc_Mat(Matriz);
-	//	}
 	}
 	
 }
