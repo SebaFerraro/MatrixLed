@@ -12,7 +12,47 @@
 #include "rom/ets_sys.h"
 #include "driver/gpio.h"
 #include "dht11.h"
-//#include "DHT11.h"
+#include "Veml6070.h"
+
+//void Veml6070(void);
+//
+//
+////
+//// Un-comment ONE of the following
+////            ---
+//void app_main(void) {
+/*
+i2c_master_init();
+uint8_t sal=0;
+uint8_t dat=0;
+uint16_t uv=0;
+dat=((IT_1<<2) | 0x02);
+while(1){
+        uv=i2c_veml6070_uv(dat);
+        printf("READ %d UV: %d\n",sal,uv);
+        vTaskDelay(2000 / portTICK_RATE_MS);
+ }
+}
+≥ 11       ≥ 2055        ≥ 4109             ≥ 8217 Extreme
+8 to 10   1494 to 2054   2989 to 4108       5977 to 8216 Very High
+6, 7      1121 to 1494   2242 to 2988       4483 to 5976 High
+3 to 5    561 to 1120    1121 to 2241       2241 to 4482 Moderate
+0 to 2    0 to 560       0 to 1120
+uint8_t iuv=0;
+if(uv<(560*T){
+
+		} else if(uv<1120*T){
+
+		}else if(uv<1494*T){
+
+		}else if(uv<2054*T){
+
+		}else {
+
+		}
+*/		
+//
+
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
 //#define GPIO_BIT_MASK  ((1ULL<<GPIO_NUM_34) | (1ULL<<GPIO_NUM_35) | (1ULL<<GPIO_NUM_23) | (1ULL<<GPIO_NUM_22)| (1ULL<<GPIO_NUM_19)) 
