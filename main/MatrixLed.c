@@ -54,7 +54,7 @@
 #define DELAY_INFO 10000
 #define DELAY_BANNER 7000
 #define CaracteresArray CaracteresArray2
-#define GPIO_OUTPUT_PINS  ((1<<PIN1_RED1) | (1<<PIN1_RED2) | (1<<PIN2_RED1) | (1<<PIN2_RED2) | (1<<PIN3_RED1) | (1<<PIN3_RED2) | (1<<PIN4_RED1) | (1<<PIN4_RED2) | (1<<PIN_BLK) | (1<<PIN_RED_STR) | (1<<PIN_RED_CLK) | (1<<PIN_GRN_STR) | (1<<PIN_GRN_CLK))
+#define GPIO_OUTPUT_PINS  ((1ULL<<PIN1_RED1) | (1ULL<<PIN1_RED2) | (1ULL<<PIN2_RED1) | (1ULL<<PIN2_RED2) | (1ULL<<PIN3_RED1) | (1ULL<<PIN3_RED2) | (1ULL<<PIN4_RED1) | (1ULL<<PIN4_RED2) | (1ULL<<PIN_BLK) | (1ULL<<PIN_RED_STR) | (1ULL<<PIN_RED_CLK) | (1ULL<<PIN_GRN_STR) | (1ULL<<PIN_GRN_CLK))
 
 uint32_t Matriz[]={
 0b00000000000000000000000000000000,
@@ -347,7 +347,7 @@ static void run() {
 	setDHTPin(PIN_DHT11);
 	setPinsVeml6070(SDA_PIN,SCL_PIN);
 	
-	printf("PINS %d\n",GPIO_OUTPUT_PINS);
+	printf("PINS %llu\n",GPIO_OUTPUT_PINS);
 	gpio_config_t io_conf;
 	io_conf.intr_type = GPIO_PIN_INTR_DISABLE;  //disable interrupt
 	io_conf.mode = GPIO_MODE_OUTPUT; //set as output mode
