@@ -14,33 +14,47 @@
 #include "dht11.h"
 #include "Veml6070.h"
 
+//#define PIN1_RED1 GPIO_NUM_17
+//#define PIN1_RED2 GPIO_NUM_16
+//#define PIN2_RED1 GPIO_NUM_32
+//#define PIN2_RED2 GPIO_NUM_33
+//#define PIN3_RED1 GPIO_NUM_25
+//#define PIN3_RED2 GPIO_NUM_26
+//#define PIN4_RED1 GPIO_NUM_27
+//#define PIN4_RED2 GPIO_NUM_21
+//#define PIN_BLK GPIO_NUM_23
+//#define PIN_RED_STR GPIO_NUM_22
+//#define PIN_RED_CLK GPIO_NUM_19
+//#define PIN_GRN_STR GPIO_NUM_0
+//#define PIN_GRN_CLK GPIO_NUM_4
+//#define PIN_DHT11 GPIO_NUM_18
+//#define SDA_PIN GPIO_NUM_5
+//#define SCL_PIN GPIO_NUM_14
 
-// See the following for generating UUIDs:
-// https://www.uuidgenerator.net/
-//#define GPIO_BIT_MASK  ((1ULL<<GPIO_NUM_34) | (1ULL<<GPIO_NUM_35) | (1ULL<<GPIO_NUM_23) | (1ULL<<GPIO_NUM_22)| (1ULL<<GPIO_NUM_19)) 
-#define PIN1_RED1 GPIO_NUM_17
-#define PIN1_RED2 GPIO_NUM_16
-#define PIN2_RED1 GPIO_NUM_32
-#define PIN2_RED2 GPIO_NUM_33
-#define PIN3_RED1 GPIO_NUM_25
-#define PIN3_RED2 GPIO_NUM_26
-#define PIN4_RED1 GPIO_NUM_27
-#define PIN4_RED2 GPIO_NUM_21
-#define PIN_BLK GPIO_NUM_23
-#define PIN_RED_STR GPIO_NUM_22
+#define PIN1_RED1 GPIO_NUM_32
+#define PIN1_RED2 GPIO_NUM_33
+#define PIN2_RED1 GPIO_NUM_25
+#define PIN2_RED2 GPIO_NUM_26
+#define PIN3_RED1 GPIO_NUM_27
+#define PIN3_RED2 GPIO_NUM_14
+#define PIN4_RED1 GPIO_NUM_12
+#define PIN4_RED2 GPIO_NUM_13
+#define PIN_BLK GPIO_NUM_5
+#define PIN_RED_STR GPIO_NUM_18
 #define PIN_RED_CLK GPIO_NUM_19
-#define PIN_GRN_STR GPIO_NUM_0
-#define PIN_GRN_CLK GPIO_NUM_4
-#define PIN_DHT11 GPIO_NUM_18
-#define SDA_PIN GPIO_NUM_5
-#define SCL_PIN GPIO_NUM_14
+#define PIN_GRN_STR GPIO_NUM_17
+#define PIN_GRN_CLK GPIO_NUM_16
+#define PIN_DHT11 GPIO_NUM_21
+#define SDA_PIN GPIO_NUM_22
+#define SCL_PIN GPIO_NUM_23
 #define Mat_Alt 8
 #define Mat_Larg 32
-#define SDELAY 1
+#define SDELAY 100
 #define T IT_2
 #define DELAY_INFO 10000
 #define DELAY_BANNER 7000
 #define CaracteresArray CaracteresArray2
+#define GPIO_OUTPUT_PINS  ((1<<PIN1_RED1) | (1<<PIN1_RED2) | (1<<PIN2_RED1) | (1<<PIN2_RED2) | (1<<PIN3_RED1) | (1<<PIN3_RED2) | (1<<PIN4_RED1) | (1<<PIN4_RED2) | (1<<PIN_BLK) | (1<<PIN_RED_STR) | (1<<PIN_RED_CLK) | (1<<PIN_GRN_STR) | (1<<PIN_GRN_CLK))
 
 uint32_t Matriz[]={
 0b00000000000000000000000000000000,
@@ -299,14 +313,14 @@ uint32_t MatrizTemp[]={
 		MatrizTemp[6]=(uint32_t)((Matriz[6]<< (largo - i)) & 0b11111111111111111111111111111111);
 		MatrizTemp[7]=(uint32_t)((Matriz[7]<< (largo - i)) & 0b11111111111111111111111111111111);
 		}else{
-		MatrizTemp[0]=(uint32_t)((Matriz[0]>>i) & 0b11111111111111111111111111111111);
-		MatrizTemp[1]=(uint32_t)((Matriz[1]>>i) & 0b11111111111111111111111111111111);
-		MatrizTemp[2]=(uint32_t)((Matriz[2]>>i) & 0b11111111111111111111111111111111);
-		MatrizTemp[3]=(uint32_t)((Matriz[3]>>i) & 0b11111111111111111111111111111111);
-		MatrizTemp[4]=(uint32_t)((Matriz[4]>>i) & 0b11111111111111111111111111111111);
-		MatrizTemp[5]=(uint32_t)((Matriz[5]>>i) & 0b11111111111111111111111111111111);
-		MatrizTemp[6]=(uint32_t)((Matriz[6]>>i) & 0b11111111111111111111111111111111);
-		MatrizTemp[7]=(uint32_t)((Matriz[7]<<i) & 0b11111111111111111111111111111111);
+		MatrizTemp[0]=(uint32_t)((Matriz[0]>> (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[1]=(uint32_t)((Matriz[1]>> (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[2]=(uint32_t)((Matriz[2]>> (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[3]=(uint32_t)((Matriz[3]>> (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[4]=(uint32_t)((Matriz[4]>> (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[5]=(uint32_t)((Matriz[5]>> (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[6]=(uint32_t)((Matriz[6]>> (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[7]=(uint32_t)((Matriz[7]<< (largo - i)) & 0b11111111111111111111111111111111);
 		}
 		Imprime_Mat(MatrizTemp);
 		Grafica_Mat(MatrizTemp,largo,color,borra);
@@ -333,20 +347,62 @@ static void run() {
 	setDHTPin(PIN_DHT11);
 	setPinsVeml6070(SDA_PIN,SCL_PIN);
 	
-	gpio_set_direction(PIN1_RED1, GPIO_MODE_OUTPUT);
-    	gpio_set_direction(PIN1_RED2, GPIO_MODE_OUTPUT);
-    	gpio_set_direction(PIN2_RED1, GPIO_MODE_OUTPUT);
-    	gpio_set_direction(PIN2_RED2, GPIO_MODE_OUTPUT);
-    	gpio_set_direction(PIN3_RED1, GPIO_MODE_OUTPUT);
-    	gpio_set_direction(PIN3_RED2, GPIO_MODE_OUTPUT);
-    	gpio_set_direction(PIN4_RED1, GPIO_MODE_OUTPUT);
-    	gpio_set_direction(PIN4_RED2, GPIO_MODE_OUTPUT);
-    	gpio_set_direction(PIN_BLK, GPIO_MODE_OUTPUT);
-    	gpio_set_direction(PIN_RED_STR, GPIO_MODE_OUTPUT);
-    	gpio_set_direction(PIN_RED_CLK, GPIO_MODE_OUTPUT);
-    	gpio_set_direction(PIN_GRN_STR, GPIO_MODE_OUTPUT);
-    	gpio_set_direction(PIN_GRN_CLK, GPIO_MODE_OUTPUT);
-        gpio_set_level(PIN_BLK, 0);
+	printf("PINS %d\n",GPIO_OUTPUT_PINS);
+	gpio_config_t io_conf;
+	io_conf.intr_type = GPIO_PIN_INTR_DISABLE;  //disable interrupt
+	io_conf.mode = GPIO_MODE_OUTPUT; //set as output mode
+	io_conf.pin_bit_mask = GPIO_OUTPUT_PINS; //bit mask of the pins that you want to set,e.g.GPIO18/19
+	io_conf.pull_down_en = 0; //disable pull-down mode
+	io_conf.pull_up_en = 0; //disable pull-up mode
+	gpio_config(&io_conf);	//configure GPIO with the given settings
+	for (int p=0;p<100;p++){
+	gpio_set_level(PIN1_RED1, 0);
+	gpio_set_level(PIN1_RED2, 0);
+	gpio_set_level(PIN2_RED1, 0);
+	gpio_set_level(PIN2_RED2, 0);
+	gpio_set_level(PIN3_RED1, 0);
+	gpio_set_level(PIN3_RED2, 0);
+	gpio_set_level(PIN4_RED1, 0);
+	gpio_set_level(PIN4_RED2, 0);
+	gpio_set_level(PIN_BLK, 0);
+	gpio_set_level(PIN_RED_STR, 0);
+	gpio_set_level(PIN_RED_CLK, 0);
+	gpio_set_level(PIN_GRN_STR, 0);
+	gpio_set_level(PIN_GRN_CLK, 0);
+	printf("PINS 0.\n");
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+	gpio_set_level(PIN1_RED1, 1);
+	gpio_set_level(PIN1_RED2, 1);
+	gpio_set_level(PIN2_RED1, 1);
+	gpio_set_level(PIN2_RED2, 1);
+	gpio_set_level(PIN3_RED1, 1);
+	gpio_set_level(PIN3_RED2, 1);
+	gpio_set_level(PIN4_RED1, 1);
+	gpio_set_level(PIN4_RED2, 1);
+	gpio_set_level(PIN_BLK, 1);
+	gpio_set_level(PIN_RED_STR, 1);
+	gpio_set_level(PIN_RED_CLK, 1);
+	gpio_set_level(PIN_GRN_STR, 1);
+	gpio_set_level(PIN_GRN_CLK, 1);
+	printf("PINS 1.\n");
+        vTaskDelay(2000 / portTICK_PERIOD_MS);
+		
+	}
+	//gpio_set_direction(PIN1_RED1, GPIO_MODE_OUTPUT);
+    	//gpio_set_direction(PIN1_RED2, GPIO_MODE_OUTPUT);
+    	//gpio_set_direction(PIN2_RED1, GPIO_MODE_OUTPUT);
+    	//gpio_set_direction(PIN2_RED2, GPIO_MODE_OUTPUT);
+    	//gpio_set_direction(PIN3_RED1, GPIO_MODE_OUTPUT);
+    	//gpio_set_direction(PIN3_RED2, GPIO_MODE_OUTPUT);
+    	//gpio_set_direction(PIN4_RED1, GPIO_MODE_OUTPUT);
+    	//gpio_set_direction(PIN4_RED2, GPIO_MODE_OUTPUT);
+    	//gpio_set_direction(PIN_BLK, GPIO_MODE_OUTPUT);
+    	//gpio_set_direction(PIN_RED_STR, GPIO_MODE_OUTPUT);
+    	//gpio_set_direction(PIN_RED_CLK, GPIO_MODE_OUTPUT);
+    	//gpio_set_direction(PIN_GRN_STR, GPIO_MODE_OUTPUT);
+    	//gpio_set_direction(PIN_GRN_CLK, GPIO_MODE_OUTPUT);
+        
+	gpio_set_level(PIN_BLK, 0);
         gpio_set_level(PIN_RED_CLK, 0);
         gpio_set_level(PIN_GRN_CLK, 0);
        
@@ -358,59 +414,6 @@ static void run() {
        	vTaskDelay(200 / portTICK_PERIOD_MS);
 	int val=0;
 	Grafica_Banner();
-	//Blanc_Mat(Matriz);
-	//Imprime_Mat(MatrizROSARIO);
-	//Grafica_Mat(MatrizROSARIO,32,2,0);
-	//vTaskDelay(DELAY_BANNER / portTICK_RATE_MS);
-	//Blanc_Mat(Matriz);
-	//Imprime_Mat(MatrizCIOR);
-	//Grafica_Mat(MatrizCIOR,32,2,0);
-	//vTaskDelay(DELAY_BANNER / portTICK_RATE_MS);
-	
-	//Pone_Car_Mat(CaracteresArray[1],0,Matriz);
-	//Pone_Car_Mat(CaracteresArray[0],8,Matriz);
-	//Imprime_Mat(Matriz);
-	//Grafica_Mat(Matriz,32,2,1);
-	//GenBarra_Mat(Matriz,20);
-	//Imprime_Mat(Matriz);
-	//Grafica_Mat(Matriz,32,1,1);
-	//double sali[2]={0};
-	//Blanc_Mat(Matriz);
-	//Pone_Car_Mat(CaracteresArray[0],0,Matriz);
-	//Pone_Car_Mat(CaracteresArray[1],8,Matriz);
-	//Imprime_Mat(Matriz);
-	//Grafica_Mat(Matriz,32,1,1);
-	//vTaskDelay(1000 / portTICK_RATE_MS);
-	//Blanc_Mat(Matriz);
-	//Pone_Car_Mat(CaracteresArray[2],0,Matriz);
-	//Pone_Car_Mat(CaracteresArray[3],8,Matriz);
-	//Imprime_Mat(Matriz);
-	//Grafica_Mat(Matriz,32,1,1);
-	//vTaskDelay(1000 / portTICK_RATE_MS);
-	//Blanc_Mat(Matriz);
-	//Pone_Car_Mat(CaracteresArray[4],0,Matriz);
-	//Pone_Car_Mat(CaracteresArray[5],8,Matriz);
-	//Imprime_Mat(Matriz);
-	//Grafica_Mat(Matriz,32,1,1);
-	//vTaskDelay(1000 / portTICK_RATE_MS);
-	//Blanc_Mat(Matriz);
-	//Pone_Car_Mat(CaracteresArray[6],0,Matriz);
-	//Pone_Car_Mat(CaracteresArray[7],8,Matriz);
-	//Imprime_Mat(Matriz);
-	//Grafica_Mat(Matriz,32,1,1);
-	//vTaskDelay(1000 / portTICK_RATE_MS);
-	//Blanc_Mat(Matriz);
-	//Pone_Car_Mat(CaracteresArray[8],0,Matriz);
-	//Pone_Car_Mat(CaracteresArray[9],8,Matriz);
-	//Imprime_Mat(Matriz);
-	//Grafica_Mat(Matriz,32,1,1);
-	//vTaskDelay(1000 / portTICK_RATE_MS);
-	//Blanc_Mat(Matriz);
-	//Pone_Car_Mat(CaracteresArray[10],0,Matriz);
-	//Pone_Car_Mat(CaracteresArray[11],8,Matriz);
-	//Imprime_Mat(Matriz);
-	//Grafica_Mat(Matriz,32,1,1);
-	//vTaskDelay(1000 / portTICK_RATE_MS);
 	Blanc_Mat(Matriz);
 	
 	while(1){
