@@ -49,10 +49,11 @@
 #define SCL_PIN GPIO_NUM_23
 #define Mat_Alt 8
 #define Mat_Larg 32
-#define SDELAY 100
+#define SDELAY 1
 #define T IT_2
 #define DELAY_INFO 10000
-#define DELAY_BANNER 7000
+#define DELAY_BANNER 3000
+#define TXT_DEBUG 0
 #define CaracteresArray CaracteresArray2
 #define GPIO_OUTPUT_PINS  ((1ULL<<PIN1_RED1) | (1ULL<<PIN1_RED2) | (1ULL<<PIN2_RED1) | (1ULL<<PIN2_RED2) | (1ULL<<PIN3_RED1) | (1ULL<<PIN3_RED2) | (1ULL<<PIN4_RED1) | (1ULL<<PIN4_RED2) | (1ULL<<PIN_BLK) | (1ULL<<PIN_RED_STR) | (1ULL<<PIN_RED_CLK) | (1ULL<<PIN_GRN_STR) | (1ULL<<PIN_GRN_CLK))
 
@@ -89,11 +90,11 @@ uint32_t MatrizSMART[]={
 };
 uint32_t MatrizCIOR[]={
 0b00000000000000000000000000000000,
-0b00000001100100110001110000000000,
-0b00111010010101001001001000000000,
-0b00000010000101001001110000000000,
-0b00111010010101001001010000000000,
-0b00000001100100110001001000000000,
+0b00000000110010011000111000000000,
+0b00111001001010100100100100111000,
+0b00000001000010100100111000000000,
+0b00111001001010100100101000111000,
+0b00000000110010011000100100000000,
 0b00000000000000000000000000000000,
 0b00000000000000000000000000000000
 };
@@ -156,7 +157,8 @@ void Grafica_Mat(uint32_t Matriz[],int largo,int color,int borra){
 		switch (color){
                 case 0:
 			gpio_set_level(PIN_RED_CLK, 1);
-                	printf("Clock RED.\n");
+			if(TXT_DEBUG>0)
+                	   printf("Clock RED.\n");
 			if(SDELAY>0)
                 	  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
                 	gpio_set_level(PIN_RED_CLK, 0);
@@ -174,7 +176,8 @@ void Grafica_Mat(uint32_t Matriz[],int largo,int color,int borra){
         	        	if(SDELAY>0)
 				  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
 				gpio_set_level(PIN_GRN_CLK, 1);
-	                	printf("Clock GREEN BLANQUEO.\n");
+				if(TXT_DEBUG>0)
+	                	   printf("Clock GREEN BLANQUEO.\n");
         	        	if(SDELAY>0)
         	        	  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
                 		gpio_set_level(PIN_GRN_CLK, 0);
@@ -184,7 +187,8 @@ void Grafica_Mat(uint32_t Matriz[],int largo,int color,int borra){
 			break;
 		case 1:
 			gpio_set_level(PIN_GRN_CLK, 1);
-                	printf("Clock GREEN.\n");
+			if(TXT_DEBUG>0)
+                	   printf("Clock GREEN.\n");
         	        if(SDELAY>0)
                 	  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
                 	gpio_set_level(PIN_GRN_CLK, 0);
@@ -202,7 +206,8 @@ void Grafica_Mat(uint32_t Matriz[],int largo,int color,int borra){
         	        	if(SDELAY>0)
         	        	  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
 				gpio_set_level(PIN_RED_CLK, 1);
-	                	printf("Clock RED BLANQUEO.\n");
+				if(TXT_DEBUG>0)
+	                	   printf("Clock RED BLANQUEO.\n");
         	        	if(SDELAY>0)
         	        	  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
                 		gpio_set_level(PIN_RED_CLK, 0);
@@ -213,7 +218,8 @@ void Grafica_Mat(uint32_t Matriz[],int largo,int color,int borra){
 		case 2:
 			gpio_set_level(PIN_RED_CLK, 1);
 			gpio_set_level(PIN_GRN_CLK, 1);
-                	printf("Clock RED-GREEN.\n");
+			if(TXT_DEBUG>0)
+                	   printf("Clock RED-GREEN.\n");
         	        if(SDELAY>0)
                 	  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
                 	gpio_set_level(PIN_RED_CLK, 0);
@@ -221,7 +227,8 @@ void Grafica_Mat(uint32_t Matriz[],int largo,int color,int borra){
 			break;
 		default:
 			gpio_set_level(PIN_RED_CLK, 1);
-                	printf("Clock RED.\n");
+			if(TXT_DEBUG>0)
+                	    printf("Clock RED.\n");
         	        if(SDELAY>0)
                 	  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
                 	gpio_set_level(PIN_RED_CLK, 0);
@@ -234,7 +241,8 @@ void Grafica_Mat(uint32_t Matriz[],int largo,int color,int borra){
         	        if(SDELAY>0)
         		  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
 		        gpio_set_level(PIN_RED_STR, 1);
-                	printf("STROB RED.\n");
+			if(TXT_DEBUG>0)
+                	  printf("STROB RED.\n");
         	        if(SDELAY>0)
 		          vTaskDelay(SDELAY / portTICK_PERIOD_MS);
 		        gpio_set_level(PIN_RED_STR, 0);
@@ -242,7 +250,8 @@ void Grafica_Mat(uint32_t Matriz[],int largo,int color,int borra){
         	        	if(SDELAY>0)
 				  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
 	                        gpio_set_level(PIN_GRN_STR, 1);
-        	                printf("STROB GREEN BORRA.\n");
+				if(TXT_DEBUG>0)
+        	                  printf("STROB GREEN BORRA.\n");
         	        	if(SDELAY>0)
                 	          vTaskDelay(SDELAY / portTICK_PERIOD_MS);
         	                gpio_set_level(PIN_GRN_STR, 0);
@@ -252,7 +261,8 @@ void Grafica_Mat(uint32_t Matriz[],int largo,int color,int borra){
         	        if(SDELAY>0)
         		  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
 		        gpio_set_level(PIN_GRN_STR, 1);
-                	printf("STROB GREEN.\n");
+			if(TXT_DEBUG>0)
+                	   printf("STROB GREEN.\n");
         	        if(SDELAY>0)
 		          vTaskDelay(SDELAY / portTICK_PERIOD_MS);
 		        gpio_set_level(PIN_GRN_STR, 0);
@@ -260,7 +270,8 @@ void Grafica_Mat(uint32_t Matriz[],int largo,int color,int borra){
         	        	if(SDELAY>0)
 				  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
 	                        gpio_set_level(PIN_RED_STR, 1);
-        	                printf("STROB RED BORRA.\n");
+				if(TXT_DEBUG>0)
+        	                   printf("STROB RED BORRA.\n");
         	        	if(SDELAY>0)
                 	          vTaskDelay(SDELAY / portTICK_PERIOD_MS);
         	                gpio_set_level(PIN_RED_STR, 0);
@@ -271,7 +282,8 @@ void Grafica_Mat(uint32_t Matriz[],int largo,int color,int borra){
         		  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
 		        gpio_set_level(PIN_RED_STR, 1);
 		        gpio_set_level(PIN_GRN_STR, 1);
-                	printf("STROB RED-GREEN.\n");
+			if(TXT_DEBUG>0)
+                	   printf("STROB RED-GREEN.\n");
         	        if(SDELAY>0)
 		          vTaskDelay(SDELAY / portTICK_PERIOD_MS);
 		        gpio_set_level(PIN_RED_STR, 0);
@@ -281,12 +293,14 @@ void Grafica_Mat(uint32_t Matriz[],int largo,int color,int borra){
         	        if(SDELAY>0)
         		  vTaskDelay(SDELAY / portTICK_PERIOD_MS);
 		        gpio_set_level(PIN_RED_STR, 1);
-                	printf("STROB RED.\n");
+			if(TXT_DEBUG>0)
+                	   printf("STROB RED.\n");
         	        if(SDELAY>0)
 		          vTaskDelay(SDELAY / portTICK_PERIOD_MS);
 		        gpio_set_level(PIN_RED_STR, 0);
         }
-	printf("BLK .\n");
+	if(TXT_DEBUG>0)
+	  printf("BLK .\n");
         gpio_set_level(PIN_BLK, 0);
 }
 		
@@ -322,20 +336,59 @@ uint32_t MatrizTemp[]={
 		MatrizTemp[6]=(uint32_t)((Matriz[6]>> (largo - i)) & 0b11111111111111111111111111111111);
 		MatrizTemp[7]=(uint32_t)((Matriz[7]<< (largo - i)) & 0b11111111111111111111111111111111);
 		}
-		Imprime_Mat(MatrizTemp);
+		if(TXT_DEBUG>0)
+		  Imprime_Mat(MatrizTemp);
 		Grafica_Mat(MatrizTemp,largo,color,borra);
 	}
 }
 
+void Grafica_Matriz_DesplazayFunde(uint32_t Matriz[],uint32_t Matrizf[],int largo,int color,int borra){
+	
+uint32_t MatrizTemp[]={
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000,
+0b00000000000000000000000000000000
+};
+	for(int i=1;i<=largo;i++){
+		MatrizTemp[0]=(uint32_t)((Matriz[0]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[1]=(uint32_t)((Matriz[1]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[2]=(uint32_t)((Matriz[2]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[3]=(uint32_t)((Matriz[3]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[4]=(uint32_t)((Matriz[4]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[5]=(uint32_t)((Matriz[5]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[6]=(uint32_t)((Matriz[6]<< (largo - i)) & 0b11111111111111111111111111111111);
+		MatrizTemp[7]=(uint32_t)((Matriz[7]<< (largo - i)) & 0b11111111111111111111111111111111);
+		if(TXT_DEBUG>0)
+		  Imprime_Mat(MatrizTemp);
+		Grafica_Mat(MatrizTemp,largo,color,borra);
+	}
+        if(DELAY_BANNER>0)
+          vTaskDelay(DELAY_BANNER / portTICK_RATE_MS);
+	for(int i=1;i<largo;i++){
+		MatrizTemp[0]=(uint32_t)(((Matriz[0]<< i) | (Matrizf[0]>> (largo - i))) & 0b11111111111111111111111111111111);
+		MatrizTemp[1]=(uint32_t)(((Matriz[1]<< i) | (Matrizf[1]>> (largo - i))) & 0b11111111111111111111111111111111);
+		MatrizTemp[2]=(uint32_t)(((Matriz[2]<< i) | (Matrizf[2]>> (largo - i))) & 0b11111111111111111111111111111111);
+		MatrizTemp[3]=(uint32_t)(((Matriz[3]<< i) | (Matrizf[3]>> (largo - i))) & 0b11111111111111111111111111111111);
+		MatrizTemp[4]=(uint32_t)(((Matriz[4]<< i) | (Matrizf[4]>> (largo - i))) & 0b11111111111111111111111111111111);
+		MatrizTemp[5]=(uint32_t)(((Matriz[5]<< i) | (Matrizf[5]>> (largo - i))) & 0b11111111111111111111111111111111);
+		MatrizTemp[6]=(uint32_t)(((Matriz[6]<< i) | (Matrizf[6]>> (largo - i))) & 0b11111111111111111111111111111111);
+		MatrizTemp[7]=(uint32_t)(((Matriz[7]<< i) | (Matrizf[7]>> (largo - i))) & 0b11111111111111111111111111111111);
+		if(TXT_DEBUG>0)
+		  Imprime_Mat(MatrizTemp);
+		Grafica_Mat(MatrizTemp,largo,color,borra);
+	}
+        if(DELAY_BANNER>0)
+          vTaskDelay(DELAY_BANNER / portTICK_RATE_MS);
+}
 void Grafica_Banner(void){
-	Blanc_Mat(Matriz);
-	Grafica_Mat(Matriz,32,2,0);
-	Grafica_Matriz_Desplaza(MatrizROSARIO,32,2,0,0);
-        if(DELAY_BANNER>0)
-          vTaskDelay(DELAY_BANNER / portTICK_RATE_MS);
-	Grafica_Matriz_Desplaza(MatrizSMART,32,2,0,1);
-        if(DELAY_BANNER>0)
-          vTaskDelay(DELAY_BANNER / portTICK_RATE_MS);
+	//Blanc_Mat(Matriz);
+	//Grafica_Mat(Matriz,32,2,0);
+	Grafica_Matriz_DesplazayFunde(MatrizROSARIO,MatrizSMART,32,2,0);
 	Blanc_Mat(Matriz);
 	Grafica_Mat(Matriz,32,2,0);
 }
@@ -355,52 +408,6 @@ static void run() {
 	io_conf.pull_down_en = 0; //disable pull-down mode
 	io_conf.pull_up_en = 0; //disable pull-up mode
 	gpio_config(&io_conf);	//configure GPIO with the given settings
-	for (int p=0;p<100;p++){
-	gpio_set_level(PIN1_RED1, 0);
-	gpio_set_level(PIN1_RED2, 0);
-	gpio_set_level(PIN2_RED1, 0);
-	gpio_set_level(PIN2_RED2, 0);
-	gpio_set_level(PIN3_RED1, 0);
-	gpio_set_level(PIN3_RED2, 0);
-	gpio_set_level(PIN4_RED1, 0);
-	gpio_set_level(PIN4_RED2, 0);
-	gpio_set_level(PIN_BLK, 0);
-	gpio_set_level(PIN_RED_STR, 0);
-	gpio_set_level(PIN_RED_CLK, 0);
-	gpio_set_level(PIN_GRN_STR, 0);
-	gpio_set_level(PIN_GRN_CLK, 0);
-	printf("PINS 0.\n");
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-	gpio_set_level(PIN1_RED1, 1);
-	gpio_set_level(PIN1_RED2, 1);
-	gpio_set_level(PIN2_RED1, 1);
-	gpio_set_level(PIN2_RED2, 1);
-	gpio_set_level(PIN3_RED1, 1);
-	gpio_set_level(PIN3_RED2, 1);
-	gpio_set_level(PIN4_RED1, 1);
-	gpio_set_level(PIN4_RED2, 1);
-	gpio_set_level(PIN_BLK, 1);
-	gpio_set_level(PIN_RED_STR, 1);
-	gpio_set_level(PIN_RED_CLK, 1);
-	gpio_set_level(PIN_GRN_STR, 1);
-	gpio_set_level(PIN_GRN_CLK, 1);
-	printf("PINS 1.\n");
-        vTaskDelay(2000 / portTICK_PERIOD_MS);
-		
-	}
-	//gpio_set_direction(PIN1_RED1, GPIO_MODE_OUTPUT);
-    	//gpio_set_direction(PIN1_RED2, GPIO_MODE_OUTPUT);
-    	//gpio_set_direction(PIN2_RED1, GPIO_MODE_OUTPUT);
-    	//gpio_set_direction(PIN2_RED2, GPIO_MODE_OUTPUT);
-    	//gpio_set_direction(PIN3_RED1, GPIO_MODE_OUTPUT);
-    	//gpio_set_direction(PIN3_RED2, GPIO_MODE_OUTPUT);
-    	//gpio_set_direction(PIN4_RED1, GPIO_MODE_OUTPUT);
-    	//gpio_set_direction(PIN4_RED2, GPIO_MODE_OUTPUT);
-    	//gpio_set_direction(PIN_BLK, GPIO_MODE_OUTPUT);
-    	//gpio_set_direction(PIN_RED_STR, GPIO_MODE_OUTPUT);
-    	//gpio_set_direction(PIN_RED_CLK, GPIO_MODE_OUTPUT);
-    	//gpio_set_direction(PIN_GRN_STR, GPIO_MODE_OUTPUT);
-    	//gpio_set_direction(PIN_GRN_CLK, GPIO_MODE_OUTPUT);
         
 	gpio_set_level(PIN_BLK, 0);
         gpio_set_level(PIN_RED_CLK, 0);
@@ -408,11 +415,18 @@ static void run() {
        
 	i2c_master_init();
 	
-	printf("BLK 1.\n");
+	if(TXT_DEBUG>0)
+	  printf("BLK 1.\n");
         vTaskDelay(500 / portTICK_PERIOD_MS);
-        printf("BLK 0.\n");
+	if(TXT_DEBUG>0)
+          printf("BLK 0.\n");
        	vTaskDelay(200 / portTICK_PERIOD_MS);
 	int val=0;
+	Blanc_Mat(Matriz);
+        Grafica_Mat(Matriz,32,2,0);
+        Grafica_Mat(MatrizCIOR,32,2,0);
+        if(DELAY_BANNER>0)
+          vTaskDelay(DELAY_BANNER / portTICK_RATE_MS);
 	Grafica_Banner();
 	Blanc_Mat(Matriz);
 	
@@ -433,7 +447,8 @@ static void run() {
 			k=k+8;
 	    		printf("Digit : %d  Posicion : %d", digit,k);
 		}
-		Imprime_Mat(Matriz);
+		if(TXT_DEBUG>0)
+		   Imprime_Mat(Matriz);
 		Grafica_Mat(Matriz,32,2,1);
         	if(DELAY_INFO>0)
 		  vTaskDelay(DELAY_INFO / portTICK_RATE_MS);
@@ -454,7 +469,8 @@ static void run() {
 			k=k+8;
 	    		printf("Digit : %d  Posicion : %d", digit,k);
 		}
-		Imprime_Mat(Matriz);
+		if(TXT_DEBUG>0)
+		   Imprime_Mat(Matriz);
 		Grafica_Mat(Matriz,32,2,1);
         	if(DELAY_INFO>0)
 		  vTaskDelay(DELAY_INFO / portTICK_RATE_MS);
@@ -472,7 +488,8 @@ static void run() {
 		if(l==0)
 		  l=1;
 		GenBarra_Mat(Matriz,l);
-	        Imprime_Mat(Matriz);
+		if(TXT_DEBUG>0)
+	          Imprime_Mat(Matriz);
 		if(l>6){
 			col=2;
 		}
