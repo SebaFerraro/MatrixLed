@@ -14,23 +14,6 @@
 #include "dht11.h"
 #include "Veml6070.h"
 
-//#define PIN1_RED1 GPIO_NUM_17
-//#define PIN1_RED2 GPIO_NUM_16
-//#define PIN2_RED1 GPIO_NUM_32
-//#define PIN2_RED2 GPIO_NUM_33
-//#define PIN3_RED1 GPIO_NUM_25
-//#define PIN3_RED2 GPIO_NUM_26
-//#define PIN4_RED1 GPIO_NUM_27
-//#define PIN4_RED2 GPIO_NUM_21
-//#define PIN_BLK GPIO_NUM_23
-//#define PIN_RED_STR GPIO_NUM_22
-//#define PIN_RED_CLK GPIO_NUM_19
-//#define PIN_GRN_STR GPIO_NUM_0
-//#define PIN_GRN_CLK GPIO_NUM_4
-//#define PIN_DHT11 GPIO_NUM_18
-//#define SDA_PIN GPIO_NUM_5
-//#define SCL_PIN GPIO_NUM_14
-
 #define PIN1_RED1 GPIO_NUM_32
 #define PIN1_RED2 GPIO_NUM_33
 #define PIN2_RED1 GPIO_NUM_25
@@ -51,7 +34,7 @@
 #define Mat_Larg 32
 #define SDELAY 1
 #define T IT_2
-#define DELAY_INFO 10000
+#define DELAY_INFO 5000
 #define DELAY_BANNER 3000
 #define TXT_DEBUG 0
 #define CaracteresArray CaracteresArray2
@@ -431,49 +414,49 @@ static void run() {
 	Blanc_Mat(Matriz);
 	
 	while(1){
-		val=getTemp();
-	    	printf("Temperatura %d\n",val);
-		int itemp = (int)roundf(val);
-	        printf("iTemp %d\n",itemp);
-		int k=0;
-		Blanc_Mat(Matriz);
-		Pone_Car_Mat(CaracteresArray[10],k,Matriz);
-		k=k+8;
-		while (itemp > 0)
-		{	
-    			int digit = itemp%10;
-	    		itemp /= 10;
-			Pone_Car_Mat(CaracteresArray[digit],k,Matriz);
-			k=k+8;
-	    		printf("Digit : %d  Posicion : %d", digit,k);
-		}
-		if(TXT_DEBUG>0)
-		   Imprime_Mat(Matriz);
-		Grafica_Mat(Matriz,32,2,1);
-        	if(DELAY_INFO>0)
-		  vTaskDelay(DELAY_INFO / portTICK_RATE_MS);
-		
-		val=getHumidity();
-	    	printf("Humedad %d\n",val);
-		itemp = (int)roundf(val);
-	        printf("iHumed %d\n",itemp);
-		k=0;
-		Blanc_Mat(Matriz);
-		Pone_Car_Mat(CaracteresArray[11],k,Matriz);
-		k=k+8;
-		while (itemp > 0)
-		{	
-    			int digit = itemp%10;
-	    		itemp /= 10;
-			Pone_Car_Mat(CaracteresArray[digit],k,Matriz);
-			k=k+8;
-	    		printf("Digit : %d  Posicion : %d", digit,k);
-		}
-		if(TXT_DEBUG>0)
-		   Imprime_Mat(Matriz);
-		Grafica_Mat(Matriz,32,2,1);
-        	if(DELAY_INFO>0)
-		  vTaskDelay(DELAY_INFO / portTICK_RATE_MS);
+		//val=getTemp();
+	    	//printf("Temperatura %d\n",val);
+		//int itemp = (int)roundf(val);
+	        //printf("iTemp %d\n",itemp);
+		//int k=0;
+		//Blanc_Mat(Matriz);
+		//Pone_Car_Mat(CaracteresArray[10],k,Matriz);
+		//k=k+8;
+		//while (itemp > 0)
+		//{	
+    	//		int digit = itemp%10;
+	//    		itemp /= 10;
+//			Pone_Car_Mat(CaracteresArray[digit],k,Matriz);
+//			k=k+8;
+//	    		printf("Digit : %d  Posicion : %d", digit,k);
+//		}
+//		if(TXT_DEBUG>0)
+//		   Imprime_Mat(Matriz);
+//		Grafica_Mat(Matriz,32,2,1);
+ //       	if(DELAY_INFO>0)
+//		  vTaskDelay(DELAY_INFO / portTICK_RATE_MS);
+//		
+//		val=getHumidity();
+//	    	printf("Humedad %d\n",val);
+//		itemp = (int)roundf(val);
+//	        printf("iHumed %d\n",itemp);
+//		k=0;
+//		Blanc_Mat(Matriz);
+//		Pone_Car_Mat(CaracteresArray[11],k,Matriz);
+//		k=k+8;
+//		while (itemp > 0)
+//		{	
+ //   			int digit = itemp%10;
+//	    		itemp /= 10;
+//			Pone_Car_Mat(CaracteresArray[digit],k,Matriz);
+//			k=k+8;
+//	    		printf("Digit : %d  Posicion : %d", digit,k);
+//		}
+//		if(TXT_DEBUG>0)
+//		   Imprime_Mat(Matriz);
+//		Grafica_Mat(Matriz,32,2,1);
+ //       	if(DELAY_INFO>0)
+//		  vTaskDelay(DELAY_INFO / portTICK_RATE_MS);
 		
 		int col=1;
 		int l=0;
@@ -500,7 +483,7 @@ static void run() {
         	if(DELAY_INFO>0)
 		  vTaskDelay(DELAY_INFO / portTICK_RATE_MS);
 		Blanc_Mat(Matriz);
-		Grafica_Banner();
+	//	Grafica_Banner();
 	}
 	
 }
