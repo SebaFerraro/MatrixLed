@@ -34,7 +34,7 @@
 #define Mat_Larg 32
 #define SDELAY 1
 #define T IT_2
-#define DELAY_INFO 5000
+#define DELAY_INFO 2000
 #define DELAY_BANNER 3000
 #define TXT_DEBUG 0
 #define CaracteresArray CaracteresArray2
@@ -465,21 +465,26 @@ static void run() {
 		uint16_t uv=0;
 		uint8_t uvi=0;
 		uv=i2c_veml6070_uv(dat);
-		uvi=i2c_veml6070_indexuv(uv,T);
-		l= (int)roundf(uvi*32/11);
-		printf("UV: %d UVI: %d IBAR: %d\n",uv,uvi,l);
-		if(l==0)
-		  l=1;
-		GenBarra_Mat(Matriz,l);
-		if(TXT_DEBUG>0)
-	          Imprime_Mat(Matriz);
-		if(l>6){
-			col=2;
+		if (uv!=65534){
+ 		  uvi=i2c_veml6070_indexuv(uv,T);
+		  l= (int)roundf(uvi*32/11);
+		  printf("UV: %d UVI: %d IBAR: %d\n",uv,uvi,l);
+		  if(l==0)
+		    l=1;
+		}else{
+		  printf("Error de lectura uv: %d \n",uv);
+		  l=0;
 		}
-		if(l>15){
-			col=0;
-		}
-	      	Grafica_Mat(Matriz,32,col,1);
+		  GenBarra_Mat(Matriz,l);
+		  if(TXT_DEBUG>0)
+	            Imprime_Mat(Matriz);
+		  if(l>6){
+		  	col=2;
+		  }
+		  if(l>15){
+		  	col=0;
+		  }
+	      	  Grafica_Mat(Matriz,32,col,1);
         	if(DELAY_INFO>0)
 		  vTaskDelay(DELAY_INFO / portTICK_RATE_MS);
 		Blanc_Mat(Matriz);
