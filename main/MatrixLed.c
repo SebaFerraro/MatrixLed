@@ -14,6 +14,7 @@
 #include "dht11.h"
 #include "Veml6070.h"
 
+#define CANT_VALUV 100
 #define PIN1_RED1 GPIO_NUM_32
 #define PIN1_RED2 GPIO_NUM_33
 #define PIN2_RED1 GPIO_NUM_25
@@ -81,10 +82,33 @@ uint32_t MatrizCIOR[]={
 0b00000000000000000000000000000000,
 0b00000000000000000000000000000000
 };
+
+uint16_t ValoresUV[CANT_VALUV]={0};
+static uint8_t ivaloresuv=0;
 //static uint8_t temprature_sens_read(); 
 //static uint32_t hall_sens_read();
 //void TempPres(double sali[]);
 
+uint8_t Promedio_UV(void){
+	int num=0;
+	uint8_t sum=0;
+	uint8_t prom=0;
+	for (int v=0;v<CANT_VALUV;v++){
+	    if(ValoresUV[v]!=0){
+		num++;
+		sum=sum+ValoresUV[v];
+	    }
+	}
+	prom=sum/num;
+	return prom;
+}
+
+void AgregaVal_UV(uint8_t valor){
+    if(valor!=0){
+       ValoresUV[ivaloresuv]=valor;
+       ivaloresuv++;
+    }
+}
 void binary(uint32_t numero){
 	for (int i = 31; i >= 0; i--)
     		printf("%u",((numero >> i) & 1));
@@ -464,24 +488,43 @@ static void run() {
 		uint8_t dat=((T<<2) | 0x02);
 		uint16_t uv=0;
 		uint8_t uvi=0;
+		uint8_t prom=0;
+		uint8_t leds=0;
 		uv=i2c_veml6070_uv(dat);
 		if (uv!=65534){
  		  uvi=i2c_veml6070_indexuv(uv,T);
-		  l= (int)roundf(uvi*32/11);
+		  AgregaVal_UV(uvi);
+		  prom=Promedio_UV();
+		  l= (int)roundf(prom*11/11);
 		  printf("UV: %d UVI: %d IBAR: %d\n",uv,uvi,l);
-		  if(l==0)
-		    l=1;
+		  
+		  if(l>10){
+		    leds=32;
+		  }else if(l>7){
+		    leds=27;
+		  }else if(l>5){
+		    leds=22;
+		  }else if(l>2){
+		    leds=17;
+		  }else if(l>1){
+		    leds=12;
+		  }else if(l>0){
+		    leds=6;
+		  }else if(l==0){
+		    leds=1;
+		  }
+		
 		}else{
 		  printf("Error de lectura uv: %d \n",uv);
-		  l=0;
+		  leds=0;
 		}
-		  GenBarra_Mat(Matriz,l);
+		  GenBarra_Mat(Matriz,leds);
 		  if(TXT_DEBUG>0)
 	            Imprime_Mat(Matriz);
-		  if(l>6){
+		  if(leds>=12){
 		  	col=2;
 		  }
-		  if(l>15){
+		  if(leds>=22){
 		  	col=0;
 		  }
 	      	  Grafica_Mat(Matriz,32,col,1);

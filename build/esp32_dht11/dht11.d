@@ -1,5 +1,5 @@
 dht11.o: \
- /home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_dht11/./dht11.c \
+ /home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/components/esp32_dht11/./dht11.c \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/stdio.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/_ansi.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/newlib.h \
@@ -21,7 +21,7 @@ dht11.o: \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/stdint.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
- /home/sferrar0/Lua-Rtos-esp32/MatrixLed/build/include/sdkconfig.h \
+ /home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/build/include/sdkconfig.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/xtensa/hal.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/xtensa/config/core.h \
@@ -74,7 +74,7 @@ dht11.o: \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/freertos/include/freertos/xtensa_api.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/nvs_flash/include/nvs_flash.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/nvs_flash/include/nvs.h \
- /home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_dht11/./dht11.h
+ /home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/components/esp32_dht11/./dht11.h
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/stdio.h:
 
@@ -118,7 +118,7 @@ dht11.o: \
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
 
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/build/include/sdkconfig.h:
+/home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/build/include/sdkconfig.h:
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/freertos/include/freertos/xtensa_config.h:
 
@@ -224,5 +224,5 @@ dht11.o: \
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/nvs_flash/include/nvs.h:
 
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_dht11/./dht11.h:
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_dht11/./dht11.c:
+/home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/components/esp32_dht11/./dht11.h:
+/home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/components/esp32_dht11/./dht11.c:

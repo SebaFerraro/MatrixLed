@@ -1,5 +1,5 @@
 Veml6070.o: \
- /home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_veml6070/./Veml6070.c \
+ /home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/components/esp32_veml6070/./Veml6070.c \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/stdio.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/_ansi.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/newlib.h \
@@ -21,7 +21,7 @@ Veml6070.o: \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/stdint.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
- /home/sferrar0/Lua-Rtos-esp32/MatrixLed/build/include/sdkconfig.h \
+ /home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/build/include/sdkconfig.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/xtensa/hal.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/xtensa/config/core.h \
@@ -116,7 +116,7 @@ Veml6070.o: \
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
 
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/build/include/sdkconfig.h:
+/home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/build/include/sdkconfig.h:
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/freertos/include/freertos/xtensa_config.h:
 
@@ -219,4 +219,4 @@ Veml6070.o: \
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_attr.h:
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/math.h:
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_veml6070/./Veml6070.c:
+/home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/components/esp32_veml6070/./Veml6070.c:

@@ -1,4 +1,5 @@
-SensTemp.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./SensTemp.c \
+SensTemp.o: \
+ /home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/main/./SensTemp.c \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/driver/include/driver/i2c.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_types.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/cdefs.h \
@@ -22,7 +23,7 @@ SensTemp.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./SensTemp.c \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/machine/types.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/stdio.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/platform_include/assert.h \
- /home/sferrar0/Lua-Rtos-esp32/MatrixLed/build/include/sdkconfig.h \
+ /home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/build/include/sdkconfig.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/stdlib.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/alloca.h \
@@ -119,7 +120,7 @@ SensTemp.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./SensTemp.c \
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/build/include/sdkconfig.h:
+/home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/build/include/sdkconfig.h:
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/stdlib.h:
 
@@ -218,4 +219,4 @@ SensTemp.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./SensTemp.c \
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_attr.h:
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/log/include/esp_log.h:
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./SensTemp.c:
+/home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/main/./SensTemp.c:

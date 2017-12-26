@@ -1,4 +1,5 @@
-MatrixLed.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./MatrixLed.c \
+MatrixLed.o: \
+ /home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/main/./MatrixLed.c \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/stdio.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/_ansi.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/newlib.h \
@@ -20,7 +21,7 @@ MatrixLed.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./MatrixLed.c \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/stdint.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
- /home/sferrar0/Lua-Rtos-esp32/MatrixLed/build/include/sdkconfig.h \
+ /home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/build/include/sdkconfig.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/xtensa/hal.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/xtensa/config/core.h \
@@ -101,7 +102,7 @@ MatrixLed.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./MatrixLed.c \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/ip4_addr.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/lwip/ip6_addr.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/apps/dhcpserver.h \
- /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./caracteres.h \
+ /home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/main/./caracteres.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_system.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_deep_sleep.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/driver/include/driver/touch_pad.h \
@@ -110,8 +111,8 @@ MatrixLed.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./MatrixLed.c \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/nvs_flash/include/nvs_flash.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/nvs_flash/include/nvs.h \
  /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/log/include/esp_log.h \
- /home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_dht11/./dht11.h \
- /home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_veml6070/./Veml6070.h
+ /home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/components/esp32_dht11/./dht11.h \
+ /home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/components/esp32_veml6070/./Veml6070.h
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/newlib/include/stdio.h:
 
@@ -155,7 +156,7 @@ MatrixLed.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./MatrixLed.c \
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
 
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/build/include/sdkconfig.h:
+/home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/build/include/sdkconfig.h:
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/freertos/include/freertos/xtensa_config.h:
 
@@ -317,7 +318,7 @@ MatrixLed.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./MatrixLed.c \
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/lwip/include/lwip/apps/dhcpserver.h:
 
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./caracteres.h:
+/home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/main/./caracteres.h:
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/esp32/include/esp_system.h:
 
@@ -335,7 +336,7 @@ MatrixLed.o: /home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./MatrixLed.c \
 
 /home/sferrar0/Lua-Rtos-esp32/esp-idf/components/log/include/esp_log.h:
 
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_dht11/./dht11.h:
+/home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/components/esp32_dht11/./dht11.h:
 
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/components/esp32_veml6070/./Veml6070.h:
-/home/sferrar0/Lua-Rtos-esp32/MatrixLed/main/./MatrixLed.c:
+/home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/components/esp32_veml6070/./Veml6070.h:
+/home/sferrar0/Lua-Rtos-esp32/Muni/MatrixLed/main/./MatrixLed.c:
