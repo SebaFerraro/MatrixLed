@@ -35,7 +35,7 @@
 #define Mat_Larg 32
 #define SDELAY 1
 #define T IT_2
-#define DELAY_INFO 2000
+#define DELAY_INFO 5000
 #define DELAY_BANNER 3000
 #define TXT_DEBUG 0
 #define CaracteresArray CaracteresArray2
@@ -91,7 +91,7 @@ static uint8_t ivaloresuv=0;
 
 uint8_t Promedio_UV(void){
 	int num=0;
-	uint8_t sum=0;
+	uint32_t sum=0;
 	uint8_t prom=0;
 	for (int v=0;v<CANT_VALUV;v++){
 	    if(ValoresUV[v]!=0){
@@ -100,14 +100,21 @@ uint8_t Promedio_UV(void){
 	    }
 	}
 	prom=sum/num;
+	printf("Promedio: %d Suma: %d Numero: %d\n",prom,sum,num);
 	return prom;
 }
 
 void AgregaVal_UV(uint8_t valor){
     if(valor!=0){
-       ValoresUV[ivaloresuv]=valor;
+      ValoresUV[ivaloresuv]=valor;
+      if(ivaloresuv<CANT_VALUV){
        ivaloresuv++;
+      }else{
+       ivaloresuv=0;
+      }
     }
+    printf("Agrega Val: %d ival: %d\n",valor,ivaloresuv);
+	
 }
 void binary(uint32_t numero){
 	for (int i = 31; i >= 0; i--)
@@ -521,10 +528,10 @@ static void run() {
 		  GenBarra_Mat(Matriz,leds);
 		  if(TXT_DEBUG>0)
 	            Imprime_Mat(Matriz);
-		  if(leds>=12){
+		  if(leds>12){
 		  	col=2;
 		  }
-		  if(leds>=22){
+		  if(leds>22){
 		  	col=0;
 		  }
 	      	  Grafica_Mat(Matriz,32,col,1);
