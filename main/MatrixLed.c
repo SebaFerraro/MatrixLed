@@ -93,26 +93,24 @@ uint8_t Promedio_UV(void){
 	int num=0;
 	uint32_t sum=0;
 	uint8_t prom=0;
-	for (int v=0;v<CANT_VALUV;v++){
-	    if(ValoresUV[v]!=0){
+	for (int v=0;v<ivaloresuv;v++){
 		num++;
 		sum=sum+ValoresUV[v];
-	    }
 	}
-	prom=sum/num;
-	printf("Promedio: %d Suma: %d Numero: %d\n",prom,sum,num);
+	if ( num >0 ){
+	  prom=sum/num;
+	  printf("Promedio: %d Suma: %d Numero: %d\n",prom,sum,num);
+	}
 	return prom;
 }
 
 void AgregaVal_UV(uint8_t valor){
-    if(valor!=0){
       ValoresUV[ivaloresuv]=valor;
       if(ivaloresuv<CANT_VALUV){
        ivaloresuv++;
       }else{
        ivaloresuv=0;
       }
-    }
     printf("Agrega Val: %d ival: %d\n",valor,ivaloresuv);
 	
 }
@@ -126,7 +124,8 @@ void GenBarra_Mat(uint32_t Mat[],int indice){
 	for (int j=0;j<indice;j++){
 		val=val | (1<<j);
 	}
-	binary(val);
+	if (TXT_DEBUG >0) 
+	  binary(val);
 	for (int i=0;i<Mat_Alt;i++){
 		Mat[i]=val;
 	}
