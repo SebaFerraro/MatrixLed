@@ -85,6 +85,7 @@ uint32_t MatrizCIOR[]={
 
 uint16_t ValoresUV[CANT_VALUV]={0};
 static uint8_t ivaloresuv=0;
+static uint8_t bvaloresuv=0;
 //static uint8_t temprature_sens_read(); 
 //static uint32_t hall_sens_read();
 //void TempPres(double sali[]);
@@ -93,13 +94,18 @@ uint8_t Promedio_UV(void){
 	int num=0;
 	uint32_t sum=0;
 	uint8_t prom=0;
-	for (int v=0;v<ivaloresuv;v++){
+	uint8_t vals=ivaloresuv;
+	if (bvaloresuv==1)
+	   vals=CANT_VALUV;
+	for (int v=0;v<vals;v++){
 		num++;
 		sum=sum+ValoresUV[v];
 	}
 	if ( num >0 ){
 	  prom=sum/num;
 	  printf("Promedio: %d Suma: %d Numero: %d\n",prom,sum,num);
+	}else{
+	printf("Sin Promedio: no hay valores. Suma: %d Numero: %d\n",sum,num);
 	}
 	return prom;
 }
@@ -110,6 +116,7 @@ void AgregaVal_UV(uint8_t valor){
        ivaloresuv++;
       }else{
        ivaloresuv=0;
+       bvaloresuv=1;
       }
     printf("Agrega Val: %d ival: %d\n",valor,ivaloresuv);
 	
