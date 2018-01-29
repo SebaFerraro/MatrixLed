@@ -14,7 +14,7 @@
 #include "dht11.h"
 #include "Veml6070.h"
 
-#define CANT_VALUV 100
+#define CANT_VALUV 20
 #define PIN1_RED1 GPIO_NUM_32
 #define PIN1_RED2 GPIO_NUM_33
 #define PIN2_RED1 GPIO_NUM_25
@@ -112,7 +112,7 @@ uint8_t Promedio_UV(void){
 
 void AgregaVal_UV(uint8_t valor){
       ValoresUV[ivaloresuv]=valor;
-      if(ivaloresuv<CANT_VALUV){
+      if(ivaloresuv<(CANT_VALUV-1)){
        ivaloresuv++;
       }else{
        ivaloresuv=0;
