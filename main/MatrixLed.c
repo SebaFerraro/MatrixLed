@@ -15,6 +15,7 @@
 #include "Veml6070.h"
 
 #define CANT_VALUV 20
+#define CORR_VALUV 110
 #define PIN1_RED1 GPIO_NUM_32
 #define PIN1_RED2 GPIO_NUM_33
 #define PIN2_RED1 GPIO_NUM_25
@@ -500,16 +501,18 @@ static void run() {
 		//int l = rand() % 32;
 		uint8_t dat=((T<<2) | 0x02);
 		uint16_t uv=0;
+		uint16_t uvc=0;
 		uint8_t uvi=0;
 		uint8_t prom=0;
 		uint8_t leds=0;
 		uv=i2c_veml6070_uv(dat);
 		if (uv!=65534){
- 		  uvi=i2c_veml6070_indexuv(uv,T);
+		  uvc= (int)roundf(uv*CORR_VALUV/100);	
+ 		  uvi=i2c_veml6070_indexuv(uvc,T);
 		  AgregaVal_UV(uvi);
 		  prom=Promedio_UV();
 		  l= (int)roundf(prom*11/11);
-		  printf("UV: %d UVI: %d IBAR: %d\n",uv,uvi,l);
+		  printf("UV: %d UVC: %d  UVI: %d IBAR: %d\n",uv,uvc,uvi,l);
 		  
 		  if(l>10){
 		    leds=32;
